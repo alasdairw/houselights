@@ -1,11 +1,11 @@
 @extends('app')
-@section('header')
+@section('contentheader_title')
 <h1>
     New Light Setting
 </h1>
 @endsection
 
-@section('content')
+@section('main-content')
     @include('errors.list')
     <div class="row">
         <div class="col-md-12">

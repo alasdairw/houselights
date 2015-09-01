@@ -19,7 +19,8 @@ class HouseLight extends Model
 
     public function __construct()
     {
-        
+        $this->client = new \Phue\Client(env('PHUE_BRIDGE_IP', '127.0.0.1'), env('PHUE_APP_NAME', 'my-phue-app'));
+        parent::__construct();
     }
 
     public function get_lights_on_network()
