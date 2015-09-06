@@ -10,6 +10,9 @@ class LightSetting extends Model
 
     protected $fillable = [
                 'name',
+                'red',
+                'green',
+                'blue',
                 'brightness',
                 'hue',
                 'saturation',

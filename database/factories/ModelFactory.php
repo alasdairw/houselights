@@ -11,11 +11,21 @@
 |
 */
 
-$factory->define(App\User::class, function ($faker) {
+$factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
         'password' => str_random(10),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\HouseLight::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'light_id' => $faker->numberBetween($min = 1000, $max = 9000),
+        'type' => 'Color Light',
+        'uniqueid' => $faker->uuid,
+        'state' => '1',
     ];
 });

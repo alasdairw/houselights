@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\HouseLight;
+use App\LightSetting;
 
 use App\Jobs\TurnLightOff;
 use App\Jobs\TurnLightOn;
@@ -22,7 +23,42 @@ class HouseLightController extends Controller
      */
     public function index()
     {
-        //
+        $lights = HouseLight::all();
+        $settings = LightSetting::all();
+        return view('home',compact('lights','settings'));
+    }
+
+    /**
+     * Turn light on or off as appropriate
+     * @param  HouseLight $houselight
+     * @return Response
+     */
+    public function toggle(HouseLight $houselight)
+    {
+        if($houselight->state==true)
+        {
+            $job = new TurnLightOff($houselight->light_id);
+        }
+        else
+        {
+            $job = new TurnLightOn($houselight->light_id);
+        }
+        $this->dispatch($job);
+        return redirect('/');
+
+    }
+
+    public function colorchange_xy(HouseLight $houselight,$x,$y)
+    {
+        $job = new SetLightColor($houselight->light_id,$x,$y);
+        $this->dispatch($job);
+        return redirect('/');
+    }
+
+    public function colorchange_setting(Request $request, HouseLight $houselight)
+    {
+        $setting = LightSetting::findOrFail($request->input('lightsetting'));
+        return $this->colorchange_xy($houselight,$setting->x,$setting->y);
     }
 
     /**
@@ -47,32 +83,7 @@ class HouseLightController extends Controller
     }
 
 
-    /**
-     * Turn light on or off as appropriate
-     * @param  HouseLight $houselight
-     * @return Response
-     */
-    public function toggle(HouseLight $houselight)
-    {
-        if($houselight->state==true)
-        {
-            $job = new TurnLightOff($houselight->light_id);
-        }
-        else
-        {
-            $job = new TurnLightOn($houselight->light_id);
-        }
-        $this->dispatch($job);
-        return redirect('/home');
-
-    }
-
-    public function colorchange_xy(HouseLight $houselight,$x,$y)
-    {
-        $job = new SetLightColor($houselight->light_id,$x,$y);
-        $this->dispatch($job);
-        return redirect('/home');
-    }
+    
 
 
     /**

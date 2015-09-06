@@ -13,18 +13,14 @@
 
 Route::group(['middleware' => ['auth']],function() {
 
-Route::get('/home', 'HomeController@index');
+Route::get('/', 'HouseLightController@index');
 Route::get('/houselights/toggle/{houselight}','HouseLightController@toggle');
 Route::get('/houselights/colorchange/{houselight}/{x}/{y}','HouseLightController@colorchange_xy');
-
+Route::post('/houselights/colorchange/{houselight}/setting','HouseLightController@colorchange_setting');
 Route::resource('lightsettings','LightSettingController');
 
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
-});
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',

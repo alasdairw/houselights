@@ -14,17 +14,24 @@ class HouseLight extends Model
      */
     protected $table = 'lights';
     protected $client;
+    protected $fillable  = [
+        'name',
+        'type'
+    ];
 
     
 
-    public function __construct()
+    public function set_client()
     {
-        $this->client = new \Phue\Client(env('PHUE_BRIDGE_IP', '127.0.0.1'), env('PHUE_APP_NAME', 'my-phue-app'));
-        parent::__construct();
+        if(!isset($this->client) || $this->client=='')
+        {
+            $this->client = new \Phue\Client(env('PHUE_BRIDGE_IP', '127.0.0.1'), env('PHUE_APP_NAME', 'my-phue-app'));
+        }
     }
 
     public function get_lights_on_network()
     {
+        $this->set_client();
         try
         {
             $lights = $this->client->getLights();

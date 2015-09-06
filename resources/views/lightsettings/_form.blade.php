@@ -3,6 +3,18 @@
     {!! Form::text('name',null,['class'=>'form-control'])!!}
 </div>
 <div class="form-group"> 
+    {!! Form::label('red','Red:')!!}
+    {!! Form::text('red',null,['class'=>'form-control'])!!}
+</div>
+<div class="form-group"> 
+    {!! Form::label('green','Green:')!!}
+    {!! Form::text('green',null,['class'=>'form-control'])!!}
+</div>
+<div class="form-group"> 
+    {!! Form::label('blue','Blue:')!!}
+    {!! Form::text('blue',null,['class'=>'form-control'])!!}
+</div>
+<div class="form-group"> 
     {!! Form::label('brightness','Brightness:')!!}
     {!! Form::text('brightness',null,['class'=>'form-control'])!!}
 </div> 

@@ -15,6 +15,9 @@ class CreateLightsettingsTable extends Migration
         Schema::create('lightsettings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('red');
+            $table->integer('green');
+            $table->integer('blue');
             $table->string('brightness');
             $table->string('hue');
             $table->string('saturation');
