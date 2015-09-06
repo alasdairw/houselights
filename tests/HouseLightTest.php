@@ -13,24 +13,13 @@ use App\Jobs\SetLightColor;
 
 class HouseLightTest extends TestCase
 {
-    use DispatchesJobs;
+    use DatabaseMigrations, DatabaseTransactions, DispatchesJobs;
 
     /**
      * This isn't ideal - it assumes a correctly set up database, and accessible lights on network
-     * TODO: Better set up.
+     * 
      */
-    public function setUp()
-    {
-        parent::setUp();
-        $this->createApplication();
-        $lights = HouseLight::all();
-        foreach($lights as $light)
-        {
-            $job = new TurnLightOff($light->light_id);
-        }
-
-    }
-
+    
     //use DatabaseTransactions, DatabaseMigrations;
     /**
      * Tests what happens when a light that is off is toggled on.
@@ -39,6 +28,7 @@ class HouseLightTest extends TestCase
      */
     public function testLightOn()
     {
+        $this->initialise();
         $light = HouseLight::where('light_id', 1)->first();
         $this->assertInstanceOf('App\HouseLight',$light);
         $job = new TurnLightOn($light->light_id);
@@ -52,6 +42,7 @@ class HouseLightTest extends TestCase
      */
     public function testLightOff()
     {
+        $this->initialise();
         $light = HouseLight::where('light_id', 1)->first();
         $this->assertInstanceOf('App\HouseLight',$light);
         $job = new TurnLightOff($light->light_id);
@@ -61,6 +52,7 @@ class HouseLightTest extends TestCase
 
     public function testLightColorChange()
     {
+        $this->initialise();
         $this->testLightOn();
         
         $light = HouseLight::where('light_id', 1)->first();

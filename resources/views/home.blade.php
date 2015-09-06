@@ -37,11 +37,11 @@
                                 <td>{{$light->name}}</td>
                                 <td>
                                     @if($light->reachable==1)
-                                        <a href="{{action('HouseLightController@toggle',['houselight'=>$light->id])}}">
+                                        <a href="{{action('HouseLightController@toggle',['houselight'=>$light->id])}}" id="light_toggle_{{$light->light_id}}">
                                         @if($light->state==0)
                                             <i class="fa fa-fw fa-toggle-off"></i> Off
                                         @else
-                                            <i class="fa fa-fw fa-toggle-on"></i> On
+                                            <i class="fa fa-fw fa-toggle-on" id="light_toggle_{{$light->light_id}}"></i> On
                                         @endif
                                         </a>
                                     @else
@@ -87,6 +87,4 @@
         </div>
     </div>
 </div>
-@endsection
-
 @endsection

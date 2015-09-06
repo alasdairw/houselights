@@ -12,6 +12,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::create(['name'=>'Main Account','email'=>'test@example.com','password'=>bcrypt('password')]);
+        $count = App\User::where('email', 'test@example.com')->count();
+
+        if($count < 1)
+        {
+            User::create(['name'=>'Main Account','email'=>'test@example.com','password'=>bcrypt('password')]);
+        }
     }
 }
